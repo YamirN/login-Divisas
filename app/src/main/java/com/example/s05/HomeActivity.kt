@@ -1,5 +1,6 @@
 package com.example.s05
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
         val spinnerTo: Spinner = findViewById(R.id.spinnerTo)
         val buttonConvert: Button = findViewById(R.id.buttonConvert)
         val textViewResult: TextView = findViewById(R.id.textViewResult)
+        val buttonLogout: Button = findViewById(R.id.buttonLogout)
 
         val currencies = arrayOf("PEN", "USD", "EUR", "MXN")
 
@@ -48,11 +50,28 @@ class HomeActivity : AppCompatActivity() {
 
             textViewResult.text = String.format("%.2f %s", result, toCurrency)
         }
+
+        buttonLogout.setOnClickListener {
+            logout()
+        }
     }
 
     private fun convertCurrency(amount: Double, fromCurrency: String, toCurrency: String): Double {
         val fromRate = exchangeRates[fromCurrency] ?: 1.0
         val toRate = exchangeRates[toCurrency] ?: 1.0
         return (amount / fromRate) * toRate
+    }
+
+    private fun logout() {
+        // Si estás usando SharedPreferences para almacenar la sesión del usuario:
+        val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear() // Elimina los datos de sesión
+        editor.apply()
+
+        // Redirigir al usuario a la actividad de inicio de sesión
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()  // Cierra la actividad actual
     }
 }

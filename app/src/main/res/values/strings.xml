@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">S05</string>
+    <string name="welcome_message">Bienvenido</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button_text">Iniciar sesión</string>
+    <string name="logo">Logo de la aplicación</string>
+</resources>
